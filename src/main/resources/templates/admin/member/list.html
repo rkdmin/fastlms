@@ -12,15 +12,28 @@
             border: solid 1px #000;
         }
         .search-form{
+            position: relative;
             padding: 5px 0 10px 0;
             text-align: right;
+        }
+        .total-count{
+            position: absolute;
+            left:0; top:0;
+            height: 20px;
+            float: left;
+        }
+        .pager{
+            text-align: center;
+            margin-top: 10px;
+        }
+        .pager a.on{
+            font-weight: bold;
+            color: red;
         }
     </style>
 </head>
 <body>
     <h1> 관리자 회원 관리 </h1>
-<!--    <div th:replace="/fragments/layout.html :: fragment-body-menu">-->
-<!--    </div>-->
     <div>
         <a href="/admin/main.do">관리자 메인</a>
         |
@@ -37,6 +50,7 @@
 
     <div class="list">
         <div class="search-form">
+            <p class="total-count">전체 <span th:text="${totalCount}"></span>개</p>
             <form method="get">
                 <select name="searchType">
                     <option value="all">전체</option>
@@ -63,7 +77,7 @@
             </thead>
             <tbody>
                 <tr th:each="x : ${list}">
-                    <td>1</td>
+                    <td th:text="${x.seq}"></td>
                     <td th:text="${x.userId}"></td>
                     <td th:text="${x.userName}"></td>
                     <td th:text="${x.phone}"></td>
@@ -81,6 +95,11 @@
                 </tr>
             </tbody>
         </table>
+
+        <div class="pager" th:utext="${pager}">
+
+        </div>
+
     </div>
 </body>
 </html>

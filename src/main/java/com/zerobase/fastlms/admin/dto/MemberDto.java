@@ -25,4 +25,8 @@ public class MemberDto {
     private LocalDateTime resetPasswordLimitDt;
 
     private boolean adminYN;
+
+    // 추가 컬럼
+    private long totalCount;
+    long seq;
 }
