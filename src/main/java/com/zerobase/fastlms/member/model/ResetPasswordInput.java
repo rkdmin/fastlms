@@ -1,4 +1,4 @@
-package com.zerobase.fastlms.member.dto;
+package com.zerobase.fastlms.member.model;
 
 import lombok.*;
 

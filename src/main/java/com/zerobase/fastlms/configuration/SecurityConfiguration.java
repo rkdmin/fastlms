@@ -47,6 +47,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/member/reset/password")
                 .permitAll();
 
+        // 관리자 권한
+        http.authorizeRequests()
+                        .antMatchers("/admin/**")
+                        .hasAnyAuthority("ROLE_ADMIN");
+        http.exceptionHandling()
+                        .accessDeniedPage("/error/denied");
+
         // 로그인 페이지 설정
         http.formLogin()
                 .loginPage("/member/login")

@@ -1,16 +1,13 @@
 package com.zerobase.fastlms.member.controller;
 
-import com.zerobase.fastlms.member.dto.MemberDto;
-import com.zerobase.fastlms.member.dto.ResetPasswordInput;
-import com.zerobase.fastlms.member.entitiy.Member;
-import com.zerobase.fastlms.member.repository.MemberRepository;
+import com.zerobase.fastlms.member.model.MemberInput;
+import com.zerobase.fastlms.member.model.ResetPasswordInput;
 import com.zerobase.fastlms.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,9 +24,9 @@ public class MemberController {
     }
 
     @PostMapping("/member/register")
-    public String registerSubmit(Model model, MemberDto memberDto){
+    public String registerSubmit(Model model, MemberInput memberInput){
 
-        boolean result = memberService.register(memberDto);
+        boolean result = memberService.register(memberInput);
         model.addAttribute("result", result);// v에 띄워주기위함
 
         return "member/register_complete";

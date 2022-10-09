@@ -1,6 +1,6 @@
 package com.zerobase.fastlms.member.entitiy;
 
-import com.zerobase.fastlms.member.dto.MemberDto;
+import com.zerobase.fastlms.member.model.MemberInput;
 import lombok.*;
 
 import javax.persistence.Entity;
@@ -30,7 +30,9 @@ public class Member {
     private String resetPasswordKey;
     private LocalDateTime resetPasswordLimitDt;
 
-    public static Member toEntity(MemberDto dto){
+    private boolean adminYN;
+
+    public static Member toEntity(MemberInput dto){
         return Member.builder()
                 .userId(dto.getUserId())
                 .userName(dto.getUserName())

@@ -1,8 +1,11 @@
 package com.zerobase.fastlms.member.service.impl;
 
+import com.zerobase.fastlms.admin.dto.MemberDto;
+import com.zerobase.fastlms.admin.mapper.MemberMapper;
+import com.zerobase.fastlms.admin.model.MemberParam;
 import com.zerobase.fastlms.components.MailComponents;
-import com.zerobase.fastlms.member.dto.MemberDto;
-import com.zerobase.fastlms.member.dto.ResetPasswordInput;
+import com.zerobase.fastlms.member.model.MemberInput;
+import com.zerobase.fastlms.member.model.ResetPasswordInput;
 import com.zerobase.fastlms.member.entitiy.Member;
 import com.zerobase.fastlms.member.exception.MemberNotEmailException;
 import com.zerobase.fastlms.member.repository.MemberRepository;
@@ -29,8 +32,10 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
     private final MailComponents mailComponents;
 
+    private final MemberMapper memberMapper;
+
     @Override
-    public boolean register(MemberDto dto) {
+    public boolean register(MemberInput dto) {
         Optional<Member> optionalMember =
                 memberRepository.findById(dto.getUserId());
         if(optionalMember.isPresent()){// 이미 있음
@@ -65,6 +70,12 @@ public class MemberServiceImpl implements MemberService {
         }
 
         Member member = optionalMember.get();
+
+        // 이미 활성화 되어있으면 false 반환
+        if(member.isEmailYN()){
+            return false;
+        }
+
         member.setEmailYN(true);
         member.setEmailDt(LocalDateTime.now());
         memberRepository.save(member);
@@ -150,6 +161,12 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    public List<MemberDto> list(MemberParam parameter) {
+        List<MemberDto> list = memberMapper.selectList(parameter);
+        return list;
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         Optional<Member> optionalMember = memberRepository.findById(username);
@@ -165,6 +182,11 @@ public class MemberServiceImpl implements MemberService {
 
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
         grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+
+        // 관리자일경우 role추가
+        if(member.isAdminYN()){
+            grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        }
 
         return new User(member.getUserId(), member.getPassword(), grantedAuthorities);
     }

@@ -1,4 +1,4 @@
-package com.zerobase.fastlms.member.dto;
+package com.zerobase.fastlms.member.model;
 
 import lombok.*;
 
@@ -8,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 @ToString
-public class MemberDto {
+public class MemberInput {
     private String userId;
     private String userName;
     private String password;
