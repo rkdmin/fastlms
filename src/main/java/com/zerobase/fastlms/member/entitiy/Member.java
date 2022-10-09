@@ -27,6 +27,9 @@ public class Member {
     private String emailKey;
     private LocalDateTime emailDt;
 
+    private String resetPasswordKey;
+    private LocalDateTime resetPasswordLimitDt;
+
     public static Member toEntity(MemberDto dto){
         return Member.builder()
                 .userId(dto.getUserId())
