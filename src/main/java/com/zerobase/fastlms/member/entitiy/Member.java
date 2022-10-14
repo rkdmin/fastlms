@@ -14,7 +14,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @Entity
-public class Member {
+public class Member implements MemberCode{
     @Id
     private String userId;
 
@@ -32,6 +32,8 @@ public class Member {
 
     private boolean adminYN;
 
+    private String userStatus;
+
     public static Member toEntity(MemberInput dto){
         return Member.builder()
                 .userId(dto.getUserId())
@@ -40,6 +42,7 @@ public class Member {
                 .password(dto.getPassword())
                 .regDt(LocalDateTime.now())
                 .emailYN(false)
+                .userStatus(Member.MEMBER_STATUS_REQ)
                 .emailKey(UUID.randomUUID().toString())
                 .build();
     }
