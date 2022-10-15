@@ -3,6 +3,7 @@ package com.zerobase.fastlms.course.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -14,7 +15,9 @@ import java.time.LocalDateTime;
 public class Course{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    private Long id;
+
+    long categoryId;
 
     private String imagePath;
     private String keyword;
@@ -27,5 +30,8 @@ public class Course{
     private String contents;
     private long price;
     private long salePrice;
-    private LocalDateTime saleEndDt;
+    private LocalDate saleEndDt;
+
+    private LocalDateTime regDt;// 등록일
+    private LocalDateTime udtDt;// 수정일
 }
