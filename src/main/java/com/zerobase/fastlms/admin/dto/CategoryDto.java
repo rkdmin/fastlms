@@ -18,6 +18,9 @@ public class CategoryDto {
     private int sortValue;
     private boolean usingYn;
 
+    // ADD COLUMNS
+    int courseCount;
+
     public static CategoryDto toDto(Category category) {
         return CategoryDto.builder()
                 .id(category.getId())
