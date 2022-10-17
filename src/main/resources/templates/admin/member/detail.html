@@ -11,16 +11,22 @@
         .detail table th, .detail table td {
             border:solid 1px #000;
         }
-
+        .list table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .list table th, .list table td {
+            border:solid 1px #000;
+        }
     </style>
 </head>
 <body>
     <div th:replace="/fragments/layout.html :: fragment-admin-body-menu"></div>
     <h1>관리자 회원 관리 - 회원 상세 정보</h1>
+    <div th:text="${list}"></div>
 
 
     <div class="detail" >
-
         <table>
             <tbody>
                 <tr>
@@ -91,17 +97,46 @@
                         </div>
                     </td>
                 </tr>
-
-
             </tbody>
         </table>
 
         <div>
             <a href="list.do"> 목록 </a>
-
         </div>
+    </div>
 
+    <div class="list">
+        <table>
+            <thead>
+            <tr>
+                <th> NO </th>
+                <th>
+                    로그인 일자
+                </th>
+                <th>
+                    접속 IP
+                </th>
+                <th>
+                    접속 UserAgent
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="x, i: ${list}">
+                <td th:text="${i.index + 1}">1</td>
+                <td>
+                    <p th:text="${x.regDt}">2021.01.01</p>
+                </td>
+                <td>
+                    <p th:text="${x.clientIp}">0.0.0.1 </p>
+                </td>
+                <td>
+                    <p th:text="${x.userAgent}">dasgsg </p>
+                </td>
 
+            </tr>
+            </tbody>
+        </table>
     </div>
 
 

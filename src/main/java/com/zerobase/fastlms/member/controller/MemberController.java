@@ -7,8 +7,8 @@ import com.zerobase.fastlms.course.model.ServiceResult;
 import com.zerobase.fastlms.course.service.TakeCourseService;
 import com.zerobase.fastlms.member.model.MemberInput;
 import com.zerobase.fastlms.member.model.ResetPasswordInput;
+import com.zerobase.fastlms.member.service.LoginHistoryService;
 import com.zerobase.fastlms.member.service.MemberService;
-import com.zerobase.fastlms.util.PasswordUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -28,14 +28,19 @@ public class MemberController {
     
     private final MemberService memberService;
     private final TakeCourseService takeCourseService;
-    
-    @RequestMapping("/member/login")
-    public String login(HttpServletRequest request) {
+    private final LoginHistoryService loginHistoryService;
 
+    @RequestMapping("/member/login")
+    public String login(HttpServletRequest request, Principal principal) {
+
+        if(principal != null){
+            loginHistoryService.add(request, principal.getName());
+        }
 
 
         return "member/login";
     }
+
     
     @GetMapping("/member/find-password")
     public String findPassword() {
