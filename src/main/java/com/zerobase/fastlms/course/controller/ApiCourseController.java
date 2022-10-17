@@ -1,5 +1,6 @@
 package com.zerobase.fastlms.course.controller;
 
+
 import com.zerobase.fastlms.admin.service.CategoryService;
 import com.zerobase.fastlms.common.model.ResponseResult;
 import com.zerobase.fastlms.course.model.ServiceResult;
@@ -14,32 +15,29 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
 
-@RestController
 @RequiredArgsConstructor
+@RestController
 public class ApiCourseController extends BaseController {
-
+    
     private final CourseService courseService;
     private final CategoryService categoryService;
-
+    
     @PostMapping("/api/course/req.api")
-    public ResponseEntity<?> courseReq(Model model, @RequestBody TakeCourseInput parameter,
-                                       Principal principal) {
-
-        // 시큐리티 로그인한 아이디
+    public ResponseEntity<?> courseReq(Model model
+            , @RequestBody TakeCourseInput parameter
+            , Principal principal) {
+        
         parameter.setUserId(principal.getName());
-
-
+    
         ServiceResult result = courseService.req(parameter);
-
-        if(!result.isResult()){
-
+        if (!result.isResult()) {
             ResponseResult responseResult = new ResponseResult(false, result.getMessage());
             return ResponseEntity.ok().body(responseResult);
         }
-
+    
         ResponseResult responseResult = new ResponseResult(true);
-
         return ResponseEntity.ok().body(responseResult);
     }
-
+    
+    
 }

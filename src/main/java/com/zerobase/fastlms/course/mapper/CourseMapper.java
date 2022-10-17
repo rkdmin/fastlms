@@ -8,6 +8,8 @@ import java.util.List;
 
 @Mapper
 public interface CourseMapper {
-    List<CourseDto> selectList(CourseParam parameter);
+    
     long selectListCount(CourseParam parameter);
+    List<CourseDto> selectList(CourseParam parameter);
+    
 }

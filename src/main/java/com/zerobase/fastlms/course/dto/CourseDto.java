@@ -6,64 +6,96 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
-@Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Data
 public class CourseDto {
-
-    private Long id;
+    
+    Long id;
     long categoryId;
-    private String imagePath;
-    private String keyword;
-    private String subject;
-    private String summary;
-    private String contents;
-    private long price;
-    private long salePrice;
-    private LocalDate saleEndDt;
-    private LocalDateTime regDt;// 등록일
-    private LocalDateTime udtDt;// 수정일
-
-    // 추가 컬럼
+    String imagePath;
+    String keyword;
+    String subject;
+    String summary;
+    String contents;
+    long price;
+    long salePrice;
+    LocalDate saleEndDt;
+    LocalDateTime regDt;//등록일(추가날짜)
+    LocalDateTime udtDt;//수정일(수정날짜)
+    
+    String filename;
+    String urlFilename;
+    
+    //추가컬럼
     long totalCount;
     long seq;
-
-
-    public static List<CourseDto> toDtoList(List<Course> courseList){
-
-        List<CourseDto> courseDtoList = new ArrayList<>();
-
-        if(courseList != null){
-            for(Course course: courseList){
-                courseDtoList.add(CourseDto.toDto(course));
-            }
-            return courseDtoList;
-        }
-
-        return null;
-    }
-
-    public static CourseDto toDto(Course course) {
+    
+    public static CourseDto of(Course course) {
         return CourseDto.builder()
                 .id(course.getId())
+                .categoryId(course.getCategoryId())
                 .imagePath(course.getImagePath())
                 .keyword(course.getKeyword())
                 .subject(course.getSubject())
                 .summary(course.getSummary())
                 .contents(course.getContents())
                 .price(course.getPrice())
-                .categoryId(course.getCategoryId())
                 .salePrice(course.getSalePrice())
                 .saleEndDt(course.getSaleEndDt())
                 .regDt(course.getRegDt())
                 .udtDt(course.getUdtDt())
+                .filename(course.getFilename())
+                .urlFilename(course.getUrlFilename())
                 .build();
     }
+    
+    public static List<CourseDto> of(List<Course> courses) {
+        
+        if (courses == null) {
+            return null;
+        }
+    
+        List<CourseDto> courseList = new ArrayList<>();
+        for(Course x : courses) {
+            courseList.add(CourseDto.of(x));
+        }
+        return courseList;
+        
+        /*
+        if (courses != null) {
+            List<CourseDto> courseList = new ArrayList<>();
+            for(Course x : courses) {
+                courseList.add(CourseDto.of(x));
+            }
+            return courseList;
+        }
+        return null;
+        */
+        
+    }
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

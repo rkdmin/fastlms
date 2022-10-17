@@ -1,27 +1,43 @@
 package com.zerobase.fastlms.admin.dto;
 
-import com.zerobase.fastlms.admin.entitiy.Category;
-import com.zerobase.fastlms.member.entitiy.Member;
-import lombok.*;
+import com.zerobase.fastlms.admin.entity.Category;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
-@Getter
-@Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-@ToString
+@Data
 public class CategoryDto {
-    private Long id;
-    private String categoryName;
-    private int sortValue;
-    private boolean usingYn;
-
-    // ADD COLUMNS
+    
+    Long id;
+    String categoryName;
+    int sortValue;
+    boolean usingYn;
+    
+    
+    //ADD COLUMNS
     int courseCount;
-
-    public static CategoryDto toDto(Category category) {
+    
+    
+    public static List<CategoryDto> of (List<Category> categories) {
+        if (categories != null) {
+            List<CategoryDto> categoryList = new ArrayList<>();
+            for(Category x : categories) {
+                categoryList.add(of(x));
+            }
+            return categoryList;
+        }
+        
+        return null;
+    }
+    
+    public static CategoryDto of(Category category) {
         return CategoryDto.builder()
                 .id(category.getId())
                 .categoryName(category.getCategoryName())
@@ -29,4 +45,6 @@ public class CategoryDto {
                 .usingYn(category.isUsingYn())
                 .build();
     }
+    
+    
 }

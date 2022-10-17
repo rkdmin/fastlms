@@ -1,52 +1,80 @@
 package com.zerobase.fastlms.admin.dto;
 
-import com.zerobase.fastlms.member.entitiy.Member;
-import lombok.*;
+import com.zerobase.fastlms.member.entity.Member;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@ToString
+@Data
 public class MemberDto {
-    private String userId;
-    private String userName;
-    private String phone;
-    private String password;
-    private LocalDateTime regDt;
-
-    private boolean emailYN;
-    private LocalDateTime emailDt;
-    private String emailKey;
-
-    private String resetPasswordKey;
-    private LocalDateTime resetPasswordLimitDt;
-
-    private boolean adminYN;
-
-    private String userStatus;
-
-    // 추가 컬럼
-    private long totalCount;
+    
+    String userId;
+    String userName;
+    String phone;
+    String password;
+    LocalDateTime regDt;
+    LocalDateTime udtDt;
+    
+    boolean emailAuthYn;
+    LocalDateTime emailAuthDt;
+    String emailAuthKey;
+    
+    String resetPasswordKey;
+    LocalDateTime resetPasswordLimitDt;
+    
+    boolean adminYn;
+    String userStatus;
+    
+    private String zipcode;
+    private String addr;
+    private String addrDetail;
+    
+    //추가컬럼
+    long totalCount;
     long seq;
-
-    public static MemberDto toDto(Member member) {
+    
+    
+    public static MemberDto of(Member member) {
+        
         return MemberDto.builder()
                 .userId(member.getUserId())
                 .userName(member.getUserName())
                 .phone(member.getPhone())
-                .userStatus(member.getUserStatus())
-                .password(member.getPassword())
+                //.password(member.getPassword())
                 .regDt(member.getRegDt())
-                .emailYN(member.isEmailYN())
-                .emailDt(member.getEmailDt())
-                .emailKey(member.getEmailKey())
+                .udtDt(member.getUdtDt())
+                .emailAuthYn(member.isEmailAuthYn())
+                .emailAuthDt(member.getEmailAuthDt())
+                .emailAuthKey(member.getEmailAuthKey())
                 .resetPasswordKey(member.getResetPasswordKey())
                 .resetPasswordLimitDt(member.getResetPasswordLimitDt())
-                .adminYN(member.isAdminYN())
+                .adminYn(member.isAdminYn())
+                .userStatus(member.getUserStatus())
+                
+                .zipcode(member.getZipcode())
+                .addr(member.getAddr())
+                .addrDetail(member.getAddrDetail())
+                
                 .build();
     }
+    
+    
+    public String getRegDtText() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
+        return regDt != null ? regDt.format(formatter) : "";
+    }
+    
+    public String getUdtDtText() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
+        return udtDt != null ? udtDt.format(formatter) : "";
+        
+    }
+    
 }

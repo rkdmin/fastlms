@@ -1,7 +1,7 @@
 package com.zerobase.fastlms.admin.repository;
 
-import com.zerobase.fastlms.admin.entitiy.Category;
-import com.zerobase.fastlms.member.entitiy.Member;
+import com.zerobase.fastlms.admin.entity.Category;
+import com.zerobase.fastlms.member.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

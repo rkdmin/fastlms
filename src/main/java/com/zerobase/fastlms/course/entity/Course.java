@@ -1,37 +1,44 @@
 package com.zerobase.fastlms.course.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Data
 @Entity
-public class Course{
+public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    Long id;
+    
     long categoryId;
-
-    private String imagePath;
-    private String keyword;
-    private String subject;
-
+    
+    String imagePath;
+    String keyword;
+    String subject;
+    
     @Column(length = 1000)
-    private String summary;
-
-    @Lob// 텍스트를 많이 잡기 위함
-    private String contents;
-    private long price;
-    private long salePrice;
-    private LocalDate saleEndDt;
-
-    private LocalDateTime regDt;// 등록일
-    private LocalDateTime udtDt;// 수정일
+    String summary;
+    
+    @Lob
+    String contents;
+    long price;
+    long salePrice;
+    LocalDate saleEndDt;
+    
+    LocalDateTime regDt;//등록일(추가날짜)
+    LocalDateTime udtDt;//수정일(수정날짜)
+    
+    
+    String filename;
+    String urlFilename;
+    
 }

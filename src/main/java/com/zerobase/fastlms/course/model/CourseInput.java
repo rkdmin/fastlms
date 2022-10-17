@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class CourseInput {
+
     long id;
     long categoryId;
     String subject;
@@ -13,9 +14,13 @@ public class CourseInput {
     long price;
     long salePrice;
     String saleEndDtText;
-
-
-    // 삭제
+    
+    //삭제를 위한
     String idList;
+    
+    
+    //ADD
+    String filename;
+    String urlFilename;
 
 }

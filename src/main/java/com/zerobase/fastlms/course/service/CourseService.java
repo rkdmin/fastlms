@@ -8,44 +8,52 @@ import com.zerobase.fastlms.course.model.TakeCourseInput;
 
 import java.util.List;
 
-public interface CourseService{
+public interface CourseService {
+    
+    
     /**
      * 강좌 등록
      */
     boolean add(CourseInput parameter);
-
+    
+    /**
+     * 강좌 정보수정
+     */
+    boolean set(CourseInput parameter);
+    
     /**
      * 강좌 목록
      */
     List<CourseDto> list(CourseParam parameter);
-
+    
     /**
-     * 강좌 상세 정보
+     * 강좌 상세정보
      */
-    CourseDto getBtId(long id);
-
-    /**
-     * 강좌 정보 수정
-     */
-    boolean set(CourseInput parameter);
-
+    CourseDto getById(long id);
+    
     /**
      * 강좌 내용 삭제
      */
-    boolean delete(String idList);
-
+    boolean del(String idList);
+    
     /**
-     * 강좌 목록(프론트)
+     * 프론트 강좌 목록
      */
     List<CourseDto> frontList(CourseParam parameter);
-
+    
     /**
-     * 강좌 상세 정보(프론트)
+     * 프론트 강좌 상세 정보
      */
     CourseDto frontDetail(long id);
-
+    
     /**
-     * 수강 신청
+     * 수강신청
      */
     ServiceResult req(TakeCourseInput parameter);
+    
+    /**
+     * 전체 강좌 목록
+     */
+    List<CourseDto> listAll();
+    
 }
