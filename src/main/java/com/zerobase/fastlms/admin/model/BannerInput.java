@@ -17,7 +17,7 @@ public class BannerInput {
     String filename;
     String urlFilename;
 
-    boolean isNewTap;
+    boolean newTapYn;
     boolean openYn;
 
     //삭제를 위한

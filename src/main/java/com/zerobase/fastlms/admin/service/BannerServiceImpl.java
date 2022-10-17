@@ -46,10 +46,10 @@ public class BannerServiceImpl implements BannerService {
 
         List<BannerDto> bannerList = null;
 
-        Optional<List<Banner>> optionalBanners = bannerRepository.findByOpenYnOrderBySortValue(true);
+        Optional<List<Banner>> optionalBannerList = bannerRepository.findByOpenYnOrderBySortValue(true);
 
-        if (optionalBanners.isPresent()) {
-            List<Banner> banners = optionalBanners.get();
+        if (optionalBannerList.isPresent()) {
+            List<Banner> banners = optionalBannerList.get();
             bannerList = BannerDto.of(banners);
         }
 
@@ -75,8 +75,6 @@ public class BannerServiceImpl implements BannerService {
     @Override
     public boolean set(BannerInput parameter) {
 
-        LocalDate saleEndDt = getLocalDate(parameter.getRegDtText());
-
         Optional<Banner> optionalCourse = bannerRepository.findById(parameter.getId());
         if (!optionalCourse.isPresent()) {
             //수정할 데이터가 없음
@@ -89,7 +87,7 @@ public class BannerServiceImpl implements BannerService {
         banner.setImagePath(parameter.getImagePath());
         banner.setFilename(parameter.getFilename());
         banner.setUrlFilename(parameter.getUrlFilename());
-        banner.setNewTap(parameter.isNewTap());
+        banner.setNewTapYn(parameter.isNewTapYn());
         banner.setOpenYn(parameter.isOpenYn());
         banner.setUdtDt(LocalDateTime.now());
         bannerRepository.save(banner);
@@ -99,8 +97,6 @@ public class BannerServiceImpl implements BannerService {
     @Override
     public boolean add(BannerInput parameter) {
 
-        LocalDate saleEndDt = getLocalDate(parameter.getRegDtText());
-
         Banner banner = Banner.builder()
                 .bannerName(parameter.getBannerName())
                 .sortValue(parameter.getSortValue())
@@ -108,7 +104,7 @@ public class BannerServiceImpl implements BannerService {
                 .filename(parameter.getFilename())
                 .urlFilename(parameter.getUrlFilename())
                 .openYn(parameter.isOpenYn())
-                .isNewTap(parameter.isNewTap())
+                .newTapYn(parameter.isNewTapYn())
                 .regDt(LocalDateTime.now())
                 .build();
 

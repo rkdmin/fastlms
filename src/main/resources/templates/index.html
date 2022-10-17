@@ -15,7 +15,12 @@
 <div class="home__slider">
     <div class="bxslider">
         <div th:each="x : ${banners}">
-            <a th:href="${x.imagePath}"><img th:src="${x.urlFilename}"></a>
+            <div th:if="${x.newTapYn eq true}">
+                <a th:href="${x.imagePath}" target="_blank"><img th:src="${x.urlFilename}"></a>
+            </div>
+            <div th:if="${x.newTapYn eq false}">
+                <a th:href="${x.imagePath}"><img th:src="${x.urlFilename}"></a>
+            </div>
         </div>
     </div>
 </div>

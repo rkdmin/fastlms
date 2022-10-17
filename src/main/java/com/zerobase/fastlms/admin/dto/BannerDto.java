@@ -25,7 +25,7 @@ public class BannerDto {
     String filename;
     String urlFilename;
 
-    boolean isNewTap;
+    boolean newTapYn;
     boolean openYn;
 
     LocalDateTime regDt;
@@ -42,7 +42,7 @@ public class BannerDto {
                 .imagePath(banner.getImagePath())
                 .filename(banner.getFilename())
                 .urlFilename(banner.getUrlFilename())
-                .isNewTap(banner.isNewTap())
+                .newTapYn(banner.isNewTapYn())
                 .openYn(banner.isOpenYn())
                 .build();
     }

@@ -9,6 +9,6 @@ import java.util.List;
 public interface LoginHistoryRepository extends JpaRepository<LoginHistory, Long> {
 
     @Query("select u from LoginHistory u " +
-            "where u.userId = :userId")
+            "where u.userId = :userId order by u.id desc")
     List<LoginHistory> detailList(String userId);
 }

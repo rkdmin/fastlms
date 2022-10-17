@@ -30,7 +30,7 @@ public class Banner {
     String filename;
     String urlFilename;
 
-    boolean isNewTap;
+    boolean newTapYn;
     boolean openYn;
 
     LocalDateTime regDt;

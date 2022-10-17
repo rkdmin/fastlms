@@ -82,11 +82,8 @@
             <tr>
                 <th>오픈 방법</th>
                 <td>
-                    <select name="isNewTap" required>
-                        <option value=""> 오픈 방법 선택 </option>
-                        <option value="true">새 창에서 열기</option>
-                        <option value="false">현재 창에서 열기</option>
-                    </select>
+                    <input th:checked="${detail.newTapYn}" type="checkbox" name="newTapYn" value="true"/>
+                    <label>새 창으로 열기</label>
                 </td>
             </tr>
             <tr>
